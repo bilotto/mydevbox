@@ -1,0 +1,65 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    ### For VB folders install this: vagrant plugin install vagrant-vbguest
+    config.vm.synced_folder ".", "/vagrant", type: "virtualbox", mount_options: ["dmode=755,fmode=764"]
+  
+    config.ssh.insert_key = false
+  
+    config.vm.define "vm_instapy" do |node|
+      node.vm.box = "dev-box"
+      node.vm.hostname = "python"
+      node.vm.network "public_network"
+  
+      node.vm.network "forwarded_port", guest: 22, id: "ssh", host: 2201
+  
+  
+        ## Runtime Node
+        node.vm.provider "virtualbox" do |vb|
+          vb.gui = false
+          vb.memory = 3*1024
+          vb.cpus = 2
+          #vb.customize ["modifyvm", :id, "--vram", "32"]
+          #vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        end
+  
+        PRE_PROVISION_YUM_PACKAGE_LIST = [
+          "sshpass"
+        ]
+      
+        PRE_PROVISION_YUM_PACKAGE_LIST.each do |package|
+          node.vm.provision "shell" do |s|
+            s.inline = "sudo yum --nogpgcheck -y install $1"
+            s.args = [package]
+          end
+        end
+      
+        # ## Workaround for missing twm, use openbox instead
+        # node.vm.provision "shell", inline: "sudo ln -s /usr/bin/openbox-session /usr/bin/twm"
+      
+        # PRE_PROVISION_PIP_PACKAGE_LIST = [
+        #   #"docker-py",
+        #   "ansible==2.9.14.0"
+        # ]
+      
+        # PRE_PROVISION_PIP_PACKAGE_LIST.each do |package|
+        #   node.vm.provision "shell" do |s|
+        #     s.inline = "sudo pip install $1"
+        #     s.args = [package]
+        #   end
+        # end
+        
+  
+    end
+  
+    ssh_priv_key = File.read("./provisioners/keys/private_key")
+    config.vm.provision 'shell', inline: "echo '#{ssh_priv_key}' > ~/.ssh/id_rsa_vagrant", privileged: false
+    config.vm.provision 'shell', inline: "chmod 600 ~/.ssh/id_rsa_vagrant", privileged: false
+    config.vm.provision 'shell', inline: "ssh-keygen -y -f ~/.ssh/id_rsa_vagrant >> ~/.ssh/authorized_keys", privileged: false
+    
+    # etc_hosts = File.read("./provisioners/etc_hosts")
+    # config.vm.provision 'shell', inline: "sudo echo '#{etc_hosts}' >> /etc/hosts", privileged: true
+  
+  end
+  
