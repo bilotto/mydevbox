@@ -15,3 +15,4 @@ sudo yum -y install dos2unix
 sudo yum -y install unzip  
 sudo yum -y install telnet 
 sudo yum -y install tcpdump
+sudo yum -y install sshpass

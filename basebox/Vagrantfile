@@ -3,38 +3,29 @@
 
 Vagrant.configure("2") do |config|
   
-  # if Vagrant.has_plugin?("vagrant-vbguest")
-  #   config.vbguest.auto_update = false
-  # end
+  if Vagrant.has_plugin?("vagrant-vbguest")
+    config.vbguest.auto_update = false
+  end
 
   config.vm.box = "centos/7"
   
-  #config.vm.synced_folder ".", "/vagrant", type: "virtualbox", mount_options: ["dmode=755,fmode=775"]
+  config.vm.synced_folder ".", "/vagrant", type: "virtualbox", mount_options: ["dmode=755,fmode=775"]
 
   config.ssh.insert_key = false
-  # config.ssh.private_key_path = ["keys/vagrant_rsa"]
 
   config.vm.define "devbox" do |node|
     node.vm.hostname = "devbox"
-    # node.vm.network "public_network"
+    node.vm.network "public_network"
   end
 
 
   config.vm.provider "virtualbox" do |vb|
-    # Display the VirtualBox GUI when booting the machine
-    # vb.gui = true
-    # Customize the amount of memory on the VM:
     vb.memory = "1024"
   end
 
-  # config.vm.provision "shell", path: "provisioners/yum_install.sh"
-  # config.vm.provision "shell", path: "provisioners/pip_install.sh"
-  # config.vm.provision "shell", path: "provisioners/docker_install.sh"
-  # config.vm.provision "shell", path: "provisioners/purge.sh"
-  
-  # ssh_priv_key = File.read("keys/private_key")
-  # config.vm.provision 'shell', inline: "echo '#{ssh_priv_key}' > ~/.ssh/id_rsa", privileged: false
-  # config.vm.provision 'shell', inline: "chmod 600 ~/.ssh/id_rsa", privileged: false
-  # config.vm.provision 'shell', inline: "ssh-keygen -y -f ~/.ssh/id_rsa >> ~/.ssh/authorized_keys", privileged: false
+  config.vm.provision "shell", path: "provisioners/yum_install.sh"
+
+  config.vm.provision "shell", path: "provisioners/pip_install.sh"
+
 
 end
