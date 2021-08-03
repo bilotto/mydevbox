@@ -1,8 +1,8 @@
 Guaranteed to work on the following versions:
 
 - Vagrant 2.2.7
-    - Windows: https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_x86_64.dmg
-    - macOS: https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_x86_64.msi
+    - Windows: https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_x86_64.msi
+    - macOS: https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_x86_64.dmg
 
 - vagrant-vbguest 0.23.0
     - vagrant plugin install --plugin-version 0.23.0 vagrant-vbguest
