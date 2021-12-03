@@ -11,4 +11,7 @@ Guaranteed to work on the following versions:
     - Windows hosts: https://download.virtualbox.org/virtualbox/6.1.22/VirtualBox-6.1.22-144080-Win.exe
     - OS X: https://download.virtualbox.org/virtualbox/6.1.22/VirtualBox-6.1.22-144080-OSX.dmg
 
+- You might need this as well:
+    - https://download.virtualbox.org/virtualbox/6.1.22/Oracle_VM_VirtualBox_Extension_Pack-6.1.22.vbox-extpack
 
+Reference: https://www.virtualbox.org/wiki/Download_Old_Builds_6_1
