@@ -1,3 +1,4 @@
+#!/bin/bash 
 # https://www.devopszones.com/2020/04/how-to-install-azure-cli-in-cent-os-78.html
 
 #Install Azure cli

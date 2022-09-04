@@ -1,2 +1,3 @@
-# sudo yum -y install tigervnc-server
-# sudo yum -y install openbox
+#!/bin/bash 
+sudo yum -y install tigervnc-server
+sudo yum -y install openbox
